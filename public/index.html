@@ -238,7 +238,7 @@
     <p class="md-p">Your repo's stargazers, drawn as stars. Every star drawn is a real one, up to 60 — past that, a capped field stands in for the count.</p>
 
     <div class="search-row">
-      <input id="repoInput" class="search-input" type="text" placeholder="owner/repo" autocomplete="off" spellcheck="false" value="a104437ana/repo-stars" />
+      <input id="repoInput" class="search-input" type="text" placeholder="owner/repo" autocomplete="off" spellcheck="false" />
       <button class="search-btn" onclick="doSearch()">→ generate</button>
     </div>
     <p class="hint">try <b>torvalds/linux</b> to see the representative mode</p>
@@ -270,6 +270,7 @@ function toggleTheme() {
 }
 initTheme();
 
+var demoRepo = 'a104437ana/sakura-garden';
 var currentRepo = null;
 var quickCopyState = 'idle';
 
@@ -285,21 +286,27 @@ function getEmbedCode(repo) {
   return '[![' + repo + ' stars](' + url + ')](https://github.com/' + repo + '/stargazers)';
 }
 
-function renderResult(repo) {
+function renderResult(repo, isDemo) {
   var url = apiUrl(repo);
+  var actionBlock = isDemo
+    ? '<div class="star-cta">' +
+        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank">⭐ star this project on GitHub</a>' +
+      '</div>'
+    : '<div class="quick-copy-wrap">' +
+        '<div class="quick-copy" id="quickCopy" onclick="handleQuickCopy(\'' + repo + '\')" title="Copy the embed code, then click again to open your README and paste it">' +
+          '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy embed code</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="star-cta">' +
+        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank">⭐ star this project on GitHub</a>' +
+      '</div>';
+
   document.getElementById('result').innerHTML =
     '<div class="previews">' +
       '<div class="preview dark"><span class="preview-label">dark bg</span><img id="imgDark" alt="' + repo + ' stars"></div>' +
       '<div class="preview light"><span class="preview-label">light bg</span><img id="imgLight" alt="' + repo + ' stars"></div>' +
     '</div>' +
-    '<div class="quick-copy-wrap">' +
-      '<div class="quick-copy" id="quickCopy" onclick="handleQuickCopy(\'' + repo + '\')" title="Copy the embed code, then click again to open your README and paste it">' +
-        '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy embed code</span>' +
-      '</div>' +
-    '</div>' +
-    '<div class="star-cta">' +
-      '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank">⭐ star this project on GitHub</a>' +
-    '</div>' +
+    actionBlock +
     '<div class="cross-note">also check out <a href="https://sakura-garden.vercel.app" target="_blank">sakura-garden</a> · <a href="https://gitcolors.vercel.app" target="_blank">gitcolors</a></div>';
 
   var imgDark = document.getElementById('imgDark');
@@ -316,6 +323,11 @@ function showError(repo) {
     '<p class="error-state">couldn\'t find "' + repo + '" — check the owner/repo spelling</p>';
 }
 
+function loadDemo() {
+  document.getElementById('result').innerHTML = '<div class="loader">loading…</div>';
+  renderResult(demoRepo, true);
+}
+
 function doSearch() {
   var repo = (document.getElementById('repoInput').value || '').trim();
   if (!repo || repo.indexOf('/') === -1 || repo.split('/').length !== 2) {
@@ -324,11 +336,12 @@ function doSearch() {
   }
   currentRepo = repo;
   document.getElementById('result').innerHTML = '<div class="loader">loading…</div>';
-  renderResult(repo);
+  renderResult(repo, false);
 }
 
 function refresh() {
-  if (currentRepo) renderResult(currentRepo);
+  if (currentRepo) renderResult(currentRepo, false);
+  else renderResult(demoRepo, true);
 }
 
 function resetQuickCopyState() {
@@ -363,7 +376,7 @@ document.getElementById('repoInput').addEventListener('keydown', function (e) {
   if (e.key === 'Enter') doSearch();
 });
 
-doSearch();
+loadDemo();
 </script>
 </body>
 </html>
