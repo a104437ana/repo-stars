@@ -1,0 +1,12 @@
+name: ✨ Repo Stars Generator ✨
+description: Turns your repo's stargazers into a field of stars for your README
+
+author: a104437ana
+
+branding:
+  icon: star
+  color: yellow
+
+runs:
+  using: node20
+  main: scripts/generate.js

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('repo-stars-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>repo-stars — turn your repo's stargazers into a sky</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22><text y=%2216%22 font-size=%2216%22>⭐</text></svg>" />
+  <meta name="description" content="Turn your GitHub repo's stargazer count into a field of stars for your README. Every star is real, up to 60 — past that, a capped field represents the count instead." />
+  <link rel="canonical" href="https://repo-stars.vercel.app/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://repo-stars.vercel.app/" />
+  <meta property="og:title" content="repo-stars — turn your repo's stargazers into a sky" />
+  <meta property="og:description" content="Every star on the badge is a real one — until there are too many to draw, and it becomes the sky your repo earned instead." />
+  <meta property="og:image" content="https://repo-stars.vercel.app/og-image.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="repo-stars — turn your repo's stargazers into a sky" />
+  <meta name="twitter:description" content="Every star on the badge is a real one — until there are too many to draw." />
+  <meta name="twitter:image" content="https://repo-stars.vercel.app/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "repo-stars",
+    "url": "https://repo-stars.vercel.app/",
+    "description": "Turn your GitHub repo's stargazer count into a field of stars for your README.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root, [data-theme="dark"] {
+      --bg: #010409;
+      --surface: #0d1117;
+      --surface2: #1a1a1f;
+      --border: #252530;
+      --border2: #2e2e3a;
+      --text: #f0f6fc;
+      --text2: #d3d9e0;
+      --text3: #9198a1;
+      --accent: #ffd54a;
+      --accent-ink: #241c0a;
+      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    [data-theme="light"] {
+      --bg: #f6f8fa;
+      --surface: #ffffff;
+      --surface2: #f6f8fa;
+      --border: #dcdce0;
+      --border2: #c8c8cc;
+      --text: #111118;
+      --text2: #3d4147;
+      --text3: #6e7681;
+      --accent: #c98a1c;
+      --accent-ink: #ffffff;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; width: 100%; }
+    html { transition: background 0.25s; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      transition: background 0.25s, color 0.25s;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cdefs%3E%3Cpath id='s' d='M0,-10 L2.5,-3.4 L9.5,-3.1 L4,1.3 L5.9,8.1 L0,4.2 L-5.9,8.1 L-4,1.3 L-9.5,-3.1 L-2.5,-3.4 Z'/%3E%3C/defs%3E%3Cuse href='%23s' fill='%23ffd54a' transform='translate(28,36) scale(0.55)'/%3E%3Cuse href='%23s' fill='%23ffd54a' opacity='0.8' transform='translate(150,22) scale(0.4)'/%3E%3Cuse href='%23s' fill='%23ffd54a' transform='translate(92,108) scale(0.9)'/%3E%3Cuse href='%23s' fill='%23ffd54a' opacity='0.85' transform='translate(188,150) scale(0.5)'/%3E%3Cuse href='%23s' fill='%23ffd54a' transform='translate(42,178) scale(0.65)'/%3E%3Cuse href='%23s' fill='%23ffd54a' opacity='0.75' transform='translate(118,188) scale(0.35)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 220px 220px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.25s;
+    }
+    [data-theme="light"] body::after { opacity: 0.55; }
+
+    .wrapper { position: relative; z-index: 1; max-width: 971.5px; margin: 0 auto; padding: 3rem 1.5rem 6rem; width: 100%; }
+
+    .readme-bar {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.45rem 0.8rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px 8px 0 0; font-size: 0.72rem; color: var(--text3);
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .readme-filename { font-size: 0.7rem; color: var(--text3); }
+
+    .theme-toggle { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+    .toggle-icon { font-size: 0.75rem; line-height: 1; user-select: none; width: 20px; display: inline-block; text-align: center; }
+    .toggle-track {
+      position: relative; width: 36px; height: 20px; border-radius: 10px;
+      background: var(--border2); border: none; cursor: pointer; padding: 0;
+      transition: background 0.25s; flex-shrink: 0;
+    }
+    .toggle-track:hover { opacity: 0.85; }
+    [data-theme="light"] .toggle-track { background: var(--accent); }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px; width: 14px; height: 14px;
+      border-radius: 50%; background: #fff;
+      transition: transform 0.22s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    [data-theme="light"] .toggle-thumb { transform: translateX(16px); }
+
+    .readme-body {
+      background: var(--surface); border: 1px solid var(--border); border-top: none;
+      border-radius: 0 0 8px 8px; padding: 2.5rem 2rem 2rem;
+      box-shadow: var(--shadow); transition: background 0.25s, border-color 0.25s;
+    }
+
+    .md-h1 {
+      font-weight: 800; font-size: 2.6rem;
+      letter-spacing: -0.02em; margin-bottom: 0.6rem;
+    }
+    .md-h1 .dash { color: var(--text3); }
+    .md-h1 .highlight { color: var(--accent); }
+    .md-p { color: var(--text2); font-size: 1rem; margin-bottom: 1.6rem; max-width: 46ch; }
+
+    .search-row { display: flex; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .search-input {
+      flex: 1; font-family: "JetBrains Mono", monospace; font-size: 0.92rem;
+      color: var(--text); background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.7rem 0.9rem; outline: none;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .search-btn {
+      font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 0.88rem;
+      color: var(--accent-ink); background: var(--accent); border: none; border-radius: 8px;
+      padding: 0 1.2rem; cursor: pointer; white-space: nowrap;
+    }
+    .search-btn:hover { filter: brightness(1.06); }
+    .hint { font-family: "JetBrains Mono", monospace; font-size: 0.75rem; color: var(--text3); margin-bottom: 2.2rem; }
+    .hint b { color: var(--text2); }
+
+    .toggle-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.2rem; }
+    .toggle-row label { display: flex; align-items: center; gap: 0.4rem; font-family: "JetBrains Mono", monospace; font-size: 0.78rem; color: var(--text3); cursor: pointer; }
+
+    #result { min-height: 60px; }
+    .loader { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: var(--text3); }
+    .error-state { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: #ff8a8a; }
+
+    .previews { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.2rem; }
+    .preview {
+      position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 9.1/1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .preview.dark { background: #0d1117; }
+    .preview.light { background: #ffffff; border: 1px solid var(--border); }
+    .preview img { width: 100%; height: 100%; display: block; }
+    .preview-label {
+      position: absolute; top: 7px; left: 10px; font-family: "JetBrains Mono", monospace;
+      font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; z-index: 2;
+    }
+    .preview.dark .preview-label { color: rgba(255,255,255,0.35); }
+    .preview.light .preview-label { color: rgba(0,0,0,0.3); }
+
+    .quick-copy-wrap { display: flex; justify-content: center; margin-bottom: 1.6rem; }
+    .quick-copy {
+      display: flex; align-items: center; gap: 0.5rem; cursor: pointer;
+      font-family: "JetBrains Mono", monospace; font-size: 0.82rem; color: var(--accent-ink);
+      background: var(--accent); border-radius: 999px; padding: 0.55rem 1.1rem;
+      transition: filter 0.15s;
+    }
+    .quick-copy:hover { filter: brightness(1.06); }
+    .quick-copy.copied { background: var(--text2); }
+
+    .star-cta {
+      display: flex; justify-content: center; margin-bottom: 0.8rem;
+    }
+    .star-btn {
+      display: flex; align-items: center; gap: 0.5rem; text-decoration: none;
+      font-family: "JetBrains Mono", monospace; font-size: 0.78rem; color: var(--text2);
+      border: 1px solid var(--border); border-radius: 999px; padding: 0.5rem 1rem;
+    }
+    .star-btn:hover { border-color: var(--accent); }
+
+    .cross-note { text-align: center; font-size: 0.78rem; color: var(--text3); margin-bottom: 2rem; }
+    .cross-note a { color: var(--text2); }
+
+    .about-section { text-align: center; color: var(--text3); font-size: 0.78rem; padding-top: 1.4rem; border-top: 1px solid var(--border); }
+
+    @media (max-width: 600px) {
+      .wrapper { padding: 1.5rem 1rem 5rem; }
+      .readme-body { padding: 1.5rem 1rem; }
+    }
+    @media (max-width: 520px) {
+      .search-row { flex-direction: column; }
+      .md-h1 { font-size: 2.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="readme-bar">
+    <span class="readme-filename">README.md</span>
+    <div class="theme-toggle">
+      <span class="toggle-icon">🌙</span>
+      <button class="toggle-track" onclick="toggleTheme()" title="Toggle theme">
+        <div class="toggle-thumb"></div>
+      </button>
+      <span class="toggle-icon">☀️</span>
+    </div>
+  </div>
+
+  <div class="readme-body">
+    <h1 class="md-h1">repo<span class="dash">-</span><span class="highlight">stars</span></h1>
+    <p class="md-p">Your repo's stargazers, drawn as stars. Every star drawn is a real one, up to 60 — past that, a capped field stands in for the count.</p>
+
+    <div class="search-row">
+      <input id="repoInput" class="search-input" type="text" placeholder="owner/repo" autocomplete="off" spellcheck="false" value="a104437ana/repo-stars" />
+      <button class="search-btn" onclick="doSearch()">→ generate</button>
+    </div>
+    <p class="hint">try <b>torvalds/linux</b> to see the representative mode</p>
+
+    <div class="toggle-row">
+      <label><input type="checkbox" id="animateCheckbox" checked onchange="refresh()" /> 🎬 twinkle</label>
+    </div>
+
+    <div id="result">
+      <div class="loader">loading…</div>
+    </div>
+
+    <div class="about-section">made with ♥</div>
+  </div>
+</div>
+
+<script>
+function initTheme() {
+  var saved = localStorage.getItem('repo-stars-theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var theme = saved || (prefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+}
+function toggleTheme() {
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('repo-stars-theme', next);
+}
+initTheme();
+
+var currentRepo = null;
+var quickCopyState = 'idle';
+
+function apiUrl(repo) {
+  var animate = document.getElementById('animateCheckbox').checked;
+  var url = location.origin + '/api/svg?repo=' + encodeURIComponent(repo);
+  if (!animate) url += '&animate=false';
+  return url;
+}
+
+function getEmbedCode(repo) {
+  var url = apiUrl(repo);
+  return '[![' + repo + ' stars](' + url + ')](https://github.com/' + repo + '/stargazers)';
+}
+
+function renderResult(repo) {
+  var url = apiUrl(repo);
+  document.getElementById('result').innerHTML =
+    '<div class="previews">' +
+      '<div class="preview dark"><span class="preview-label">dark bg</span><img id="imgDark" alt="' + repo + ' stars"></div>' +
+      '<div class="preview light"><span class="preview-label">light bg</span><img id="imgLight" alt="' + repo + ' stars"></div>' +
+    '</div>' +
+    '<div class="quick-copy-wrap">' +
+      '<div class="quick-copy" id="quickCopy" onclick="handleQuickCopy(\'' + repo + '\')" title="Copy the embed code, then click again to open your README and paste it">' +
+        '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy embed code</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="star-cta">' +
+      '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank">⭐ star this project on GitHub</a>' +
+    '</div>' +
+    '<div class="cross-note">also check out <a href="https://sakura-garden.vercel.app" target="_blank">sakura-garden</a> · <a href="https://gitcolors.vercel.app" target="_blank">gitcolors</a></div>';
+
+  var imgDark = document.getElementById('imgDark');
+  var imgLight = document.getElementById('imgLight');
+  imgDark.onerror = imgLight.onerror = function () { showError(repo); };
+  imgDark.src = url;
+  imgLight.src = url;
+
+  quickCopyState = 'idle';
+}
+
+function showError(repo) {
+  document.getElementById('result').innerHTML =
+    '<p class="error-state">couldn\'t find "' + repo + '" — check the owner/repo spelling</p>';
+}
+
+function doSearch() {
+  var repo = (document.getElementById('repoInput').value || '').trim();
+  if (!repo || repo.indexOf('/') === -1 || repo.split('/').length !== 2) {
+    document.getElementById('result').innerHTML = '<p class="error-state">enter a repo as owner/name</p>';
+    return;
+  }
+  currentRepo = repo;
+  document.getElementById('result').innerHTML = '<div class="loader">loading…</div>';
+  renderResult(repo);
+}
+
+function refresh() {
+  if (currentRepo) renderResult(currentRepo);
+}
+
+function resetQuickCopyState() {
+  quickCopyState = 'idle';
+  var quick = document.getElementById('quickCopy');
+  var label = document.getElementById('quickCopyLabel');
+  var icon = document.getElementById('quickCopyIcon');
+  if (!quick || !label) return;
+  quick.classList.remove('copied');
+  label.textContent = 'copy embed code';
+  if (icon) icon.textContent = '📋';
+}
+
+function handleQuickCopy(repo) {
+  var quick = document.getElementById('quickCopy');
+  var label = document.getElementById('quickCopyLabel');
+  var icon = document.getElementById('quickCopyIcon');
+
+  if (quickCopyState === 'idle') {
+    navigator.clipboard.writeText(getEmbedCode(repo));
+    quickCopyState = 'copied';
+    if (quick) quick.classList.add('copied');
+    if (label) label.textContent = 'copied! now paste it in your README →';
+    if (icon) icon.textContent = '✅';
+  } else {
+    window.open('https://github.com/' + repo + '/edit/main/README.md', '_blank');
+    setTimeout(resetQuickCopyState, 1500);
+  }
+}
+
+document.getElementById('repoInput').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') doSearch();
+});
+
+doSearch();
+</script>
+</body>
+</html>

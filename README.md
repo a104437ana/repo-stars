@@ -1,0 +1,99 @@
+# ✨ repo-stars
+## Your GitHub repo's stars, drawn as stars
+
+Every star on the badge is a real one — until there are too many to draw, and it becomes the sky your repo earned instead.
+
+See it here: https://repo-stars.vercel.app
+
+[![stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana/repo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
+
+## ⚡ Quick Setup
+
+1. Go to https://repo-stars.vercel.app
+2. Enter `owner/repo`
+3. Copy the snippet
+4. Paste into your README
+
+## 🔧 Manual Setup
+
+1. Copy the code below
+```markdown
+[![your-repo stars](https://repo-stars.vercel.app/api/svg?repo=owner/name)](https://github.com/owner/name/stargazers)
+```
+2. Replace `owner/name` with your repo
+3. Paste into your README
+
+The image is fetched live, so it always reflects the repo's current star count.
+
+## 🚀 Advanced Setup
+
+Prefer the image committed straight into your repo instead of loaded live?
+
+1. Create `.github/workflows/repo-stars.yml`
+2. Copy the code below
+```yaml
+name: Repo Stars
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate repo-stars
+        uses: a104437ana/repo-stars@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add stars.svg
+          git commit -m "Update repo-stars" || exit 0
+          git push
+```
+3. Paste into the file you just created
+4. Copy the code below
+```markdown
+[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars.svg)](https://github.com/owner/name/stargazers)
+```
+5. Replace `owner/name` with your repo
+6. Paste into your README
+
+## Features
+
+- ⭐ Every star drawn is a real one, up to 60 — past that, a capped field represents the count instead of trying to draw it all
+- 🌗 One SVG works on both light and dark backgrounds — no separate files, no `<picture>` needed
+- 🎬 Stars twinkle on load (respects `prefers-reduced-motion`)
+- 💻 Dedicated [website](https://repo-stars.vercel.app) to preview and copy the snippet
+
+## API
+
+You can also hit the API directly, without going through the site:
+
+`https://repo-stars.vercel.app/api/svg?repo=owner/name`
+
+- `repo` — required, in `owner/name` format
+- `width`, `height` — optional, in pixels (default `1000`×`110`)
+- `animate` — set to `false` to disable the twinkle
+
+The image itself carries no text — the count isn't legible from the art alone by design. Pair it with real markdown text (like the linked "stars" label in the snippet above) if you want the number readable.
+
+## Support
+
+If you like this project, please consider giving it a star ⭐
+
+## Also check out
+
+- [sakura-garden](https://sakura-garden.vercel.app) — your GitHub contributions as a blooming garden
+- [gitcolors](https://gitcolors.vercel.app) — your contributions graph in any color
