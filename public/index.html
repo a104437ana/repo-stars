@@ -162,9 +162,6 @@
     .hint { font-family: "JetBrains Mono", monospace; font-size: 0.75rem; color: var(--text3); margin-bottom: 2.2rem; }
     .hint b { color: var(--text2); }
 
-    .toggle-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.2rem; }
-    .toggle-row label { display: flex; align-items: center; gap: 0.4rem; font-family: "JetBrains Mono", monospace; font-size: 0.78rem; color: var(--text3); cursor: pointer; }
-
     #result { min-height: 60px; }
     .loader { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: var(--text3); }
     .error-state { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: #ff8a8a; }
@@ -243,10 +240,6 @@
     </div>
     <p class="hint">try <b>torvalds/linux</b> to see the representative mode</p>
 
-    <div class="toggle-row">
-      <label><input type="checkbox" id="animateCheckbox" checked onchange="refresh()" /> 🎬 twinkle</label>
-    </div>
-
     <div id="result">
       <div class="loader">loading…</div>
     </div>
@@ -275,10 +268,7 @@ var currentRepo = null;
 var quickCopyState = 'idle';
 
 function apiUrl(repo) {
-  var animate = document.getElementById('animateCheckbox').checked;
-  var url = location.origin + '/api/svg?repo=' + encodeURIComponent(repo);
-  if (!animate) url += '&animate=false';
-  return url;
+  return location.origin + '/api/svg?repo=' + encodeURIComponent(repo);
 }
 
 function getEmbedCode(repo) {
@@ -337,11 +327,6 @@ function doSearch() {
   currentRepo = repo;
   document.getElementById('result').innerHTML = '<div class="loader">loading…</div>';
   renderResult(repo, false);
-}
-
-function refresh() {
-  if (currentRepo) renderResult(currentRepo, false);
-  else renderResult(demoRepo, true);
 }
 
 function resetQuickCopyState() {

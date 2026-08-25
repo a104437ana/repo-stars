@@ -74,7 +74,6 @@ jobs:
 
 - ⭐ Every star drawn is a real one, up to 60 — past that, a capped field represents the count instead of trying to draw it all
 - 🌗 One SVG works on both light and dark backgrounds — no separate files, no `<picture>` needed
-- 🎬 Stars twinkle on load (respects `prefers-reduced-motion`)
 - 💻 Dedicated [website](https://repo-stars.vercel.app) to preview and copy the snippet
 
 ## API
@@ -85,7 +84,6 @@ You can also hit the API directly, without going through the site:
 
 - `repo` — required, in `owner/name` format
 - `width`, `height` — optional, in pixels (default `1000`×`110`)
-- `animate` — set to `false` to disable the twinkle
 
 The image itself carries no text — the count isn't legible from the art alone by design. Pair it with real markdown text (like the linked "stars" label in the snippet above) if you want the number readable.
 

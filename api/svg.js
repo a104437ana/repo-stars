@@ -11,7 +11,6 @@ export default async function handler(req) {
   const repo = searchParams.get("repo");
   const width = Number(searchParams.get("width")) || DEFAULT_WIDTH;
   const height = Number(searchParams.get("height")) || DEFAULT_HEIGHT;
-  const animate = searchParams.get("animate") !== "false";
 
   if (!repo || !repo.includes("/")) {
     return new Response("repo is required, in owner/name format", {
@@ -38,7 +37,7 @@ export default async function handler(req) {
 
     const data = await ghRes.json();
     const count = data.stargazers_count ?? 0;
-    const svg = renderStarsSVG({ count, width, height, animate });
+    const svg = renderStarsSVG({ count, width, height });
 
     return new Response(svg, {
       status: 200,
