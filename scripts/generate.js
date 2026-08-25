@@ -35,7 +35,7 @@ async function main() {
   const count = await fetchStarCount(repo, token);
   console.log(`${repo} has ${count} stars`);
 
-  const svg = renderStarsSVG({ repo, count });
+  const svg = renderStarsSVG({ count });
 
   // written to the root of the consuming repo (GITHUB_WORKSPACE)
   const workspace = process.env.GITHUB_WORKSPACE ?? resolve(__dirname, "../..");

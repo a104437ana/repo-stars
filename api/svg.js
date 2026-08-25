@@ -38,7 +38,7 @@ export default async function handler(req) {
 
     const data = await ghRes.json();
     const count = data.stargazers_count ?? 0;
-    const svg = renderStarsSVG({ repo, count, width, height, animate });
+    const svg = renderStarsSVG({ count, width, height, animate });
 
     return new Response(svg, {
       status: 200,
