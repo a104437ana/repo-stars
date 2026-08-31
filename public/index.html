@@ -166,6 +166,11 @@
     .loader { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: var(--text3); }
     .error-state { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: #ff8a8a; }
 
+    .profile-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border2); }
+    .profile-name { font-size: 1.05rem; font-weight: 700; }
+    .profile-sub { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; color: var(--text3); }
+
     .repo-preview { border-radius: 10px; padding: 16px; margin-bottom: 1.2rem; }
     [data-theme="dark"] .repo-preview { background: #0d1117; }
     [data-theme="light"] .repo-preview { background: #ffffff; border: 1px solid var(--border); }
@@ -293,6 +298,14 @@ function getEmbedCode(repo) {
 
 function renderResult(repo, isDemo) {
   var url = apiUrl(repo);
+  var parts = repo.split('/');
+  var owner = parts[0];
+  var repoName = parts[1];
+  var profileRow =
+    '<div class="profile-row">' +
+      '<img class="avatar" src="https://github.com/' + encodeURIComponent(owner) + '.png" alt="' + owner + '">' +
+      '<div><div class="profile-name">' + repoName + '</div><div class="profile-sub">' + repo + '</div></div>' +
+    '</div>';
   var actionBlock = isDemo
     ? '<div class="star-cta">' +
         '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
@@ -307,6 +320,7 @@ function renderResult(repo, isDemo) {
       '</div>';
 
   document.getElementById('result').innerHTML =
+    profileRow +
     '<div class="repo-preview">' +
       '<img class="badge-preview" id="imgBadge" alt="' + repo + ' stars">' +
       '<img class="star-preview" id="imgStars" alt="' + repo + ' stars">' +
