@@ -1,4 +1,5 @@
 import { renderStarsSVG, DEFAULT_WIDTH, DEFAULT_HEIGHT } from "../lib/svg.js";
+import { fetchStarCount } from "../lib/github.js";
 
 export const config = {
   runtime: "edge",
@@ -20,23 +21,7 @@ export default async function handler(req) {
   }
 
   try {
-    const ghRes = await fetch(`https://api.github.com/repos/${repo}`, {
-      headers: {
-        Accept: "application/vnd.github+json",
-        "User-Agent": "repo-stars-app",
-        ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
-      },
-    });
-
-    if (ghRes.status === 404) {
-      return new Response("Repo not found", { status: 404, headers: CORS_HEADERS });
-    }
-    if (!ghRes.ok) {
-      return new Response("GitHub API error", { status: ghRes.status, headers: CORS_HEADERS });
-    }
-
-    const data = await ghRes.json();
-    const count = data.stargazers_count ?? 0;
+    const count = await fetchStarCount(repo, process.env.GITHUB_TOKEN);
     const svg = renderStarsSVG({ count, width, height });
 
     return new Response(svg, {
@@ -44,12 +29,13 @@ export default async function handler(req) {
       headers: {
         "Content-Type": "image/svg+xml",
         "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
-        "X-Stars": String(count),
-        "Access-Control-Expose-Headers": "X-Stars",
         ...CORS_HEADERS,
       },
     });
   } catch (err) {
+    if (err.status === 404) {
+      return new Response("Repo not found", { status: 404, headers: CORS_HEADERS });
+    }
     return new Response("Error generating SVG", { status: 500, headers: CORS_HEADERS });
   }
 }

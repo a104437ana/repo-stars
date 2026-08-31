@@ -2,25 +2,9 @@ import { writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { renderStarsSVG } from "../lib/svg.js";
+import { fetchStarCount } from "../lib/github.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-async function fetchStarCount(repo, token) {
-  const res = await fetch(`https://api.github.com/repos/${repo}`, {
-    headers: {
-      Accept: "application/vnd.github+json",
-      "User-Agent": "repo-stars-app",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error(`GitHub API error for ${repo}: ${res.status}`);
-  }
-
-  const data = await res.json();
-  return data.stargazers_count ?? 0;
-}
 
 async function main() {
   const repo = process.env.GITHUB_REPOSITORY;

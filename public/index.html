@@ -285,7 +285,6 @@ initTheme();
 var demoRepo = 'a104437ana/sakura-garden';
 var currentRepo = null;
 var currentStarCount = null;
-var currentBlobUrl = null;
 var quickCopyState = 'idle';
 
 function apiUrl(repo) {
@@ -298,7 +297,7 @@ function getEmbedCode(repo) {
   return countLine + '[![' + repo + ' stars](' + url + ')](https://github.com/' + repo + '/stargazers)';
 }
 
-async function renderResult(repo, isDemo) {
+function renderResult(repo, isDemo) {
   var url = apiUrl(repo);
   var actionBlock = isDemo
     ? '<div class="star-cta">' +
@@ -313,30 +312,28 @@ async function renderResult(repo, isDemo) {
         '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
       '</div>';
 
-  var res;
-  try {
-    res = await fetch(url);
-  } catch (err) {
-    showError(repo);
-    return;
-  }
-  if (!res.ok) {
-    showError(repo);
-    return;
-  }
-
-  var count = Number(res.headers.get('X-Stars'));
-  currentStarCount = isNaN(count) ? null : count;
-  if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-  var blobUrl = currentBlobUrl = URL.createObjectURL(await res.blob());
-
   document.getElementById('result').innerHTML =
     '<div class="previews">' +
-      '<div class="preview dark"><span class="preview-label">dark bg</span><img src="' + blobUrl + '" alt="' + repo + ' stars"></div>' +
-      '<div class="preview light"><span class="preview-label">light bg</span><img src="' + blobUrl + '" alt="' + repo + ' stars"></div>' +
+      '<div class="preview dark"><span class="preview-label">dark bg</span><img id="imgDark" alt="' + repo + ' stars"></div>' +
+      '<div class="preview light"><span class="preview-label">light bg</span><img id="imgLight" alt="' + repo + ' stars"></div>' +
     '</div>' +
     actionBlock +
     '<div class="cross-note">also check out <a href="https://sakura-garden.vercel.app" target="_blank">sakura-garden</a> · <a href="https://gitcolors.vercel.app" target="_blank">gitcolors</a></div>';
+
+  var imgDark = document.getElementById('imgDark');
+  var imgLight = document.getElementById('imgLight');
+  imgDark.onerror = imgLight.onerror = function () { showError(repo); };
+  imgDark.src = url;
+  imgLight.src = url;
+
+  currentStarCount = null;
+  fetch(location.origin + '/api/stars?repo=' + encodeURIComponent(repo))
+    .then(function (res) { return res.ok ? res.json() : null; })
+    .then(function (data) {
+      var stillActive = repo === (isDemo ? demoRepo : currentRepo);
+      if (data && stillActive) currentStarCount = data.stars;
+    })
+    .catch(function () {});
 
   quickCopyState = 'idle';
 }

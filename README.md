@@ -87,6 +87,12 @@ You can also hit the API directly, without going through the site:
 
 The image itself carries no text — the count isn't legible from the art alone by design. Pair it with real markdown text (like the linked "stars" label in the snippet above) if you want the number readable.
 
+If you just want the raw number (to build your own text yourself):
+
+`https://repo-stars.vercel.app/api/stars?repo=owner/name`
+
+returns `{ "repo": "owner/name", "stars": 16 }`.
+
 ## Support
 
 If you like this project, please consider giving it a star ⭐
