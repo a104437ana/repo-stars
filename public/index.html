@@ -299,15 +299,15 @@ function renderResult(repo, isDemo) {
   var url = apiUrl(repo);
   var actionBlock = isDemo
     ? '<div class="star-cta">' +
-        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank">⭐ star this project on GitHub</a>' +
+        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
       '</div>'
     : '<div class="quick-copy-wrap">' +
         '<div class="quick-copy" id="quickCopy" onclick="handleQuickCopy(\'' + repo + '\')" title="Copy the embed code, then click again to open your README and paste it">' +
-          '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy embed code</span>' +
+          '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy stars</span>' +
         '</div>' +
       '</div>' +
       '<div class="star-cta">' +
-        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank">⭐ star this project on GitHub</a>' +
+        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
       '</div>';
 
   document.getElementById('result').innerHTML =
@@ -355,7 +355,7 @@ function resetQuickCopyState() {
   var icon = document.getElementById('quickCopyIcon');
   if (!quick || !label) return;
   quick.classList.remove('copied');
-  label.textContent = 'copy embed code';
+  label.textContent = 'copy stars';
   if (icon) icon.textContent = '📋';
 }
 
