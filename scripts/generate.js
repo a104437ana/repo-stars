@@ -2,6 +2,7 @@ import { writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { renderStarsSVG } from "../lib/svg.js";
+import { renderStarsTextSVG } from "../lib/textBadge.js";
 import { fetchStarCount } from "../lib/github.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -20,12 +21,14 @@ async function main() {
   console.log(`${repo} has ${count} stars`);
 
   const svg = renderStarsSVG({ count });
+  const badgeSvg = renderStarsTextSVG({ count });
 
   // written to the root of the consuming repo (GITHUB_WORKSPACE)
   const workspace = process.env.GITHUB_WORKSPACE ?? resolve(__dirname, "../..");
   writeFileSync(resolve(workspace, "stars.svg"), svg);
+  writeFileSync(resolve(workspace, "stars-badge.svg"), badgeSvg);
 
-  console.log("Done! Generated stars.svg");
+  console.log("Done! Generated stars.svg and stars-badge.svg");
 }
 
 main().catch((err) => {

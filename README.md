@@ -37,7 +37,7 @@ Both images are fetched live, so they always reflect the repo's current star cou
 
 ## 🚀 Advanced Setup
 
-Prefer the image committed straight into your repo instead of loaded live?
+Prefer the images committed straight into your repo instead of loaded live?
 
 1. Create `.github/workflows/repo-stars.yml`
 2. Copy the code below
@@ -68,13 +68,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add stars.svg
+          git add stars.svg stars-badge.svg
           git commit -m "Update repo-stars" || exit 0
           git push
 ```
 3. Paste into the file you just created
 4. Copy the code below
 ```markdown
+[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars-badge.svg)](https://github.com/owner/name/stargazers)
 [![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars.svg)](https://github.com/owner/name/stargazers)
 ```
 5. Replace `owner/name` with your repo
