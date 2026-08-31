@@ -163,8 +163,21 @@
     .hint b { color: var(--text2); }
 
     #result { min-height: 60px; }
-    .loader { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: var(--text3); }
     .error-state { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: #ff8a8a; }
+
+    .skeleton { background: var(--surface2); position: relative; overflow: hidden; }
+    .skeleton::after {
+      content: ''; position: absolute; inset: 0; transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      animation: shimmer 1.3s ease-in-out infinite;
+    }
+    @keyframes shimmer { 100% { transform: translateX(100%); } }
+    @media (prefers-reduced-motion: reduce) { .skeleton::after { animation: none; } }
+    .skeleton-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+    .skeleton-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+    .skeleton-lines { display: flex; flex-direction: column; gap: 6px; }
+    .skeleton-line { border-radius: 4px; }
+    .skeleton-preview { border-radius: 10px; aspect-ratio: 9.1/1; margin-bottom: 2rem; border: 1px solid var(--border); }
 
     .profile-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
     .avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border2); }
@@ -256,7 +269,14 @@
     <p class="hint">try <b>torvalds/linux</b> to see many stars</p>
 
     <div id="result">
-      <div class="loader">loading…</div>
+      <div class="skeleton-row">
+        <div class="skeleton skeleton-avatar"></div>
+        <div class="skeleton-lines">
+          <div class="skeleton skeleton-line" style="width:110px;height:15px;"></div>
+          <div class="skeleton skeleton-line" style="width:160px;height:11px;"></div>
+        </div>
+      </div>
+      <div class="skeleton skeleton-preview"></div>
     </div>
 
     <div class="about-section">made with ⭐</div>
@@ -281,6 +301,17 @@ initTheme();
 var demoRepo = 'a104437ana/sakura-garden';
 var currentRepo = null;
 var quickCopyState = 'idle';
+var requestId = 0;
+
+var SKELETON_HTML =
+  '<div class="skeleton-row">' +
+    '<div class="skeleton skeleton-avatar"></div>' +
+    '<div class="skeleton-lines">' +
+      '<div class="skeleton skeleton-line" style="width:110px;height:15px;"></div>' +
+      '<div class="skeleton skeleton-line" style="width:160px;height:11px;"></div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="skeleton skeleton-preview"></div>';
 
 function apiUrl(repo) {
   return location.origin + '/api/svg?repo=' + encodeURIComponent(repo);
@@ -296,45 +327,59 @@ function getEmbedCode(repo) {
     '[![' + repo + ' stars](' + apiUrl(repo) + ')](' + stargazersUrl + ')';
 }
 
+function preloadImage(src) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
 function renderResult(repo, isDemo) {
+  var thisRequest = ++requestId;
   var url = apiUrl(repo);
-  var parts = repo.split('/');
-  var owner = parts[0];
-  var repoName = parts[1];
-  var profileRow =
-    '<div class="profile-row">' +
-      '<img class="avatar" src="https://github.com/' + encodeURIComponent(owner) + '.png" alt="' + owner + '">' +
-      '<div><div class="profile-name">' + repoName + '</div><div class="profile-sub">' + repo + '</div></div>' +
-    '</div>';
-  var actionBlock = isDemo
-    ? '<div class="star-cta">' +
-        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
-      '</div>'
-    : '<div class="quick-copy-wrap">' +
-        '<div class="quick-copy" id="quickCopy" onclick="handleQuickCopy(\'' + repo + '\')" title="Copy the embed code, then click again to open your README and paste it">' +
-          '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy stars</span>' +
+  var badgeUrl = textBadgeUrl(repo);
+
+  Promise.all([preloadImage(badgeUrl), preloadImage(url)])
+    .then(function () {
+      if (thisRequest !== requestId) return;
+
+      var parts = repo.split('/');
+      var owner = parts[0];
+      var repoName = parts[1];
+      var profileRow =
+        '<div class="profile-row">' +
+          '<img class="avatar" src="https://github.com/' + encodeURIComponent(owner) + '.png" alt="' + owner + '">' +
+          '<div><div class="profile-name">' + repoName + '</div><div class="profile-sub">' + repo + '</div></div>' +
+        '</div>';
+      var actionBlock = isDemo
+        ? '<div class="star-cta">' +
+            '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
+          '</div>'
+        : '<div class="quick-copy-wrap">' +
+            '<div class="quick-copy" id="quickCopy" onclick="handleQuickCopy(\'' + repo + '\')" title="Copy the embed code, then click again to open your README and paste it">' +
+              '<span id="quickCopyIcon">📋</span><span id="quickCopyLabel">copy stars</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="star-cta">' +
+            '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
+          '</div>';
+
+      document.getElementById('result').innerHTML =
+        profileRow +
+        '<div class="repo-preview">' +
+          '<img class="badge-preview" src="' + badgeUrl + '" alt="' + repo + ' stars">' +
+          '<img class="star-preview" src="' + url + '" alt="' + repo + ' stars">' +
         '</div>' +
-      '</div>' +
-      '<div class="star-cta">' +
-        '<a class="star-btn" href="https://github.com/a104437ana/repo-stars" target="_blank"><span>⭐</span><span>Check out the project on GitHub and consider giving it a star</span></a>' +
-      '</div>';
+        actionBlock +
+        '<div class="cross-note">also check out <a href="https://sakura-garden.vercel.app" target="_blank">sakura-garden</a> · <a href="https://gitcolors.vercel.app" target="_blank">gitcolors</a></div>';
 
-  document.getElementById('result').innerHTML =
-    profileRow +
-    '<div class="repo-preview">' +
-      '<img class="badge-preview" id="imgBadge" alt="' + repo + ' stars">' +
-      '<img class="star-preview" id="imgStars" alt="' + repo + ' stars">' +
-    '</div>' +
-    actionBlock +
-    '<div class="cross-note">also check out <a href="https://sakura-garden.vercel.app" target="_blank">sakura-garden</a> · <a href="https://gitcolors.vercel.app" target="_blank">gitcolors</a></div>';
-
-  var imgBadge = document.getElementById('imgBadge');
-  var imgStars = document.getElementById('imgStars');
-  imgBadge.onerror = imgStars.onerror = function () { showError(repo); };
-  imgBadge.src = textBadgeUrl(repo);
-  imgStars.src = url;
-
-  quickCopyState = 'idle';
+      quickCopyState = 'idle';
+    })
+    .catch(function () {
+      if (thisRequest === requestId) showError(repo);
+    });
 }
 
 function showError(repo) {
@@ -343,7 +388,7 @@ function showError(repo) {
 }
 
 function loadDemo() {
-  document.getElementById('result').innerHTML = '<div class="loader">loading…</div>';
+  document.getElementById('result').innerHTML = SKELETON_HTML;
   renderResult(demoRepo, true);
 }
 
@@ -354,7 +399,7 @@ function doSearch() {
     return;
   }
   currentRepo = repo;
-  document.getElementById('result').innerHTML = '<div class="loader">loading…</div>';
+  document.getElementById('result').innerHTML = SKELETON_HTML;
   renderResult(repo, false);
 }
 
