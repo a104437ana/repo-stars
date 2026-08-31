@@ -1,5 +1,5 @@
-# ✨ repo-stars
-## Your GitHub repo's stars, drawn as stars
+# ⭐ repo-stars
+## Your GitHub repo's stars for your README ✨
 
 Every star on the badge is a real one — until there are too many to draw, and it becomes the sky your repo earned instead.
 
