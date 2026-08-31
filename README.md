@@ -1,12 +1,19 @@
 # ⭐ repo-stars
 ## Your GitHub repo's stars for your README ✨
 
-Every star on the badge is a real one — until there are too many to draw, and it becomes the sky your repo earned instead.
+Your GitHub repo's stars, for your README. Up to 60, you see every star. More than that, you see many stars.
 
-See it here: https://repo-stars.vercel.app
+See your stars here: https://repo-stars.vercel.app
 
-[![stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana/repo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
-[![stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana/repo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
+Example 1:
+
+[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Fsakura-garden)](https://github.com/a104437ana/sakura-garden/stargazers)
+[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Fsakura-garden)](https://github.com/a104437ana/sakura-garden/stargazers)
+
+Example 2:
+
+[![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
+[![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
 
 ## ⚡ Quick Setup
 
@@ -102,11 +109,13 @@ If you just want the raw number as JSON (to build your own text yourself):
 
 returns `{ "repo": "owner/name", "stars": 16 }`.
 
-## Support
-
-If you like this project, please consider giving it a star ⭐
-
 ## Also check out
 
 - [sakura-garden](https://sakura-garden.vercel.app) — your GitHub contributions as a blooming garden
 - [gitcolors](https://gitcolors.vercel.app) — your contributions graph in any color
+
+## Support
+
+If you like this project, please consider giving it a star ⭐
+
+## Stars
