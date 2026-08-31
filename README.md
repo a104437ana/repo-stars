@@ -15,6 +15,8 @@ Example 2:
 [![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
 [![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
 
+A fun way to show off your repo's stars — and maybe earn a few more too :)
+
 ## Features
 
 - ⭐ Turns your repo's stars into a picture for your README
