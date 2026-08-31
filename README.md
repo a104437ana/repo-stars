@@ -15,6 +15,16 @@ Example 2:
 [![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
 [![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
 
+## Features
+
+- ⭐ Turns your repo's stars into a picture for your README
+- :octocat: Updates automatically based on your GitHub repo's stars
+- ✨ Up to 60, you see every star. More than that, you see many stars
+- 🌗 Automatically matches light or dark mode — no need to pick one
+- 📱 Looks good on desktop and mobile
+- ⚡ Easy to integrate into any README or portfolio
+- 💻 Dedicated [website](https://repo-stars.vercel.app) to preview and copy the stars
+
 ## ⚡ Quick Setup
 
 1. Go to https://repo-stars.vercel.app
@@ -80,12 +90,6 @@ jobs:
 ```
 5. Replace `owner/name` with your repo
 6. Paste into your README
-
-## Features
-
-- ⭐ Every star drawn is a real one, up to 60 — past that, a capped field represents the count instead of trying to draw it all
-- 🌗 One SVG works on both light and dark backgrounds — no separate files, no `<picture>` needed
-- 💻 Dedicated [website](https://repo-stars.vercel.app) to preview and copy the snippet
 
 ## API
 
