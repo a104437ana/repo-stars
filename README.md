@@ -5,6 +5,7 @@ Every star on the badge is a real one — until there are too many to draw, and 
 
 See it here: https://repo-stars.vercel.app
 
+[![stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana/repo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
 [![stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana/repo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
 
 ## ⚡ Quick Setup
@@ -18,12 +19,13 @@ See it here: https://repo-stars.vercel.app
 
 1. Copy the code below
 ```markdown
+[![your-repo stars](https://repo-stars.vercel.app/api/stars-badge?repo=owner/name)](https://github.com/owner/name/stargazers)
 [![your-repo stars](https://repo-stars.vercel.app/api/svg?repo=owner/name)](https://github.com/owner/name/stargazers)
 ```
 2. Replace `owner/name` with your repo
 3. Paste into your README
 
-The image is fetched live, so it always reflects the repo's current star count.
+Both images are fetched live, so they always reflect the repo's current star count.
 
 ## 🚀 Advanced Setup
 
@@ -85,9 +87,15 @@ You can also hit the API directly, without going through the site:
 - `repo` — required, in `owner/name` format
 - `width`, `height` — optional, in pixels (default `1000`×`110`)
 
-The image itself carries no text — the count isn't legible from the art alone by design. Pair it with real markdown text (like the linked "stars" label in the snippet above) if you want the number readable.
+The image itself carries no text — the count isn't legible from the art alone by design. Pair it with the text badge below if you want the number readable.
 
-If you just want the raw number (to build your own text yourself):
+To show the count as legible text, without it going stale the moment your star count changes:
+
+`https://repo-stars.vercel.app/api/stars-badge?repo=owner/name`
+
+This renders small SVG text (not the star art) that's refetched — and can change — every time your README is viewed, unlike plain markdown text which freezes the moment it's pasted. The "Quick Setup" snippet already includes this above the star field.
+
+If you just want the raw number as JSON (to build your own text yourself):
 
 `https://repo-stars.vercel.app/api/stars?repo=owner/name`
 

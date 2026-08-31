@@ -284,17 +284,20 @@ initTheme();
 
 var demoRepo = 'a104437ana/sakura-garden';
 var currentRepo = null;
-var currentStarCount = null;
 var quickCopyState = 'idle';
 
 function apiUrl(repo) {
   return location.origin + '/api/svg?repo=' + encodeURIComponent(repo);
 }
 
+function textBadgeUrl(repo) {
+  return location.origin + '/api/stars-badge?repo=' + encodeURIComponent(repo);
+}
+
 function getEmbedCode(repo) {
-  var url = apiUrl(repo);
-  var countLine = currentStarCount === null ? '' : '**' + currentStarCount.toLocaleString() + ' stars**\n';
-  return countLine + '[![' + repo + ' stars](' + url + ')](https://github.com/' + repo + '/stargazers)';
+  var stargazersUrl = 'https://github.com/' + repo + '/stargazers';
+  return '[![' + repo + ' stars](' + textBadgeUrl(repo) + ')](' + stargazersUrl + ')\n' +
+    '[![' + repo + ' stars](' + apiUrl(repo) + ')](' + stargazersUrl + ')';
 }
 
 function renderResult(repo, isDemo) {
@@ -326,20 +329,10 @@ function renderResult(repo, isDemo) {
   imgDark.src = url;
   imgLight.src = url;
 
-  currentStarCount = null;
-  fetch(location.origin + '/api/stars?repo=' + encodeURIComponent(repo))
-    .then(function (res) { return res.ok ? res.json() : null; })
-    .then(function (data) {
-      var stillActive = repo === (isDemo ? demoRepo : currentRepo);
-      if (data && stillActive) currentStarCount = data.stars;
-    })
-    .catch(function () {});
-
   quickCopyState = 'idle';
 }
 
 function showError(repo) {
-  currentStarCount = null;
   document.getElementById('result').innerHTML =
     '<p class="error-state">couldn\'t find "' + repo + '" — check the owner/repo spelling</p>';
 }
