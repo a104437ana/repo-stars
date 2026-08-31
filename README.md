@@ -12,8 +12,9 @@ See it here: https://repo-stars.vercel.app
 
 1. Go to https://repo-stars.vercel.app
 2. Enter `owner/repo`
-3. Copy the snippet
+3. Copy stars
 4. Paste into your README
+5. Commit and push
 
 ## 🔧 Manual Setup
 
