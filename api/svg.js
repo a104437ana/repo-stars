@@ -44,6 +44,8 @@ export default async function handler(req) {
       headers: {
         "Content-Type": "image/svg+xml",
         "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+        "X-Stars": String(count),
+        "Access-Control-Expose-Headers": "X-Stars",
         ...CORS_HEADERS,
       },
     });
