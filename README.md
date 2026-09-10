@@ -7,13 +7,13 @@ See your stars here: https://repo-stars.vercel.app
 
 Example 1:
 
-[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Fsakura-garden)](https://github.com/a104437ana/sakura-garden/stargazers)
-[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Fsakura-garden)](https://github.com/a104437ana/sakura-garden/stargazers)
+[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Fsakura-garden)](https://repo-stars.vercel.app)
+[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Fsakura-garden)](https://repo-stars.vercel.app)
 
 Example 2:
 
-[![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
-[![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://github.com/torvalds/linux/stargazers)
+[![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge?repo=torvalds%2Flinux)](https://repo-stars.vercel.app)
+[![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://repo-stars.vercel.app)
 
 A fun way to show off your repo's stars — and maybe earn a few more too :)
 
@@ -39,8 +39,8 @@ A fun way to show off your repo's stars — and maybe earn a few more too :)
 
 1. Copy the code below
 ```markdown
-[![your-repo stars](https://repo-stars.vercel.app/api/stars-badge?repo=owner/name)](https://github.com/owner/name/stargazers)
-[![your-repo stars](https://repo-stars.vercel.app/api/svg?repo=owner/name)](https://github.com/owner/name/stargazers)
+[![your-repo stars](https://repo-stars.vercel.app/api/stars-badge?repo=owner/name)](https://repo-stars.vercel.app)
+[![your-repo stars](https://repo-stars.vercel.app/api/svg?repo=owner/name)](https://repo-stars.vercel.app)
 ```
 2. Replace `owner/name` with your repo
 3. Paste into your README
@@ -87,8 +87,8 @@ jobs:
 3. Paste into the file you just created
 4. Copy the code below
 ```markdown
-[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars-badge.svg)](https://github.com/owner/name/stargazers)
-[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars.svg)](https://github.com/owner/name/stargazers)
+[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars-badge.svg)](https://repo-stars.vercel.app)
+[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars.svg)](https://repo-stars.vercel.app)
 ```
 5. Replace `owner/name` with your repo
 6. Paste into your README
@@ -127,5 +127,5 @@ If you like this project, please consider giving it a star ⭐
 
 ## Stars
 
-[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
-[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://github.com/a104437ana/repo-stars/stargazers)
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)

@@ -324,9 +324,9 @@ function textBadgeUrl(repo) {
 }
 
 function getEmbedCode(repo) {
-  var stargazersUrl = 'https://github.com/' + repo + '/stargazers';
-  return '[![' + repo + ' stars](' + textBadgeUrl(repo) + ')](' + stargazersUrl + ')\n' +
-    '[![' + repo + ' stars](' + apiUrl(repo) + ')](' + stargazersUrl + ')';
+  var linkUrl = 'https://repo-stars.vercel.app';
+  return '[![' + repo + ' stars](' + textBadgeUrl(repo) + ')](' + linkUrl + ')\n' +
+    '[![' + repo + ' stars](' + apiUrl(repo) + ')](' + linkUrl + ')';
 }
 
 function preloadImage(src) {
