@@ -126,6 +126,5 @@ returns `{ "repo": "owner/name", "stars": 16 }`.
 If you like this project, please consider giving it a star ⭐
 
 ## Stars
-
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
