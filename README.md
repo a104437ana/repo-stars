@@ -5,14 +5,24 @@ Your GitHub repo's stars, for your README. Up to 60, you see every star. More th
 
 See your stars here: https://repo-stars.vercel.app
 
-Example 1:
+Example 1 — "stars" as a word:
 
 [![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Fsakura-garden)](https://repo-stars.vercel.app)
 [![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Fsakura-garden)](https://repo-stars.vercel.app)
 
-Example 2:
+Example 2 — same repo, ★ symbol instead:
+
+[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Fsakura-garden)](https://repo-stars.vercel.app)
+[![a104437ana/sakura-garden stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Fsakura-garden)](https://repo-stars.vercel.app)
+
+Example 3 — "stars" as a word:
 
 [![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge?repo=torvalds%2Flinux)](https://repo-stars.vercel.app)
+[![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://repo-stars.vercel.app)
+
+Example 4 — same repo, ★ symbol instead:
+
+[![torvalds/linux stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=torvalds%2Flinux)](https://repo-stars.vercel.app)
 [![torvalds/linux stars](https://repo-stars.vercel.app/api/svg?repo=torvalds%2Flinux)](https://repo-stars.vercel.app)
 
 A fun way to show off your repo's stars — and maybe earn a few more too :)
@@ -31,9 +41,10 @@ A fun way to show off your repo's stars — and maybe earn a few more too :)
 
 1. Go to https://repo-stars.vercel.app
 2. Enter `owner/repo`
-3. Copy stars
-4. Paste into your README
-5. Commit and push
+3. (optional) Flip the `stars` / ★ toggle at the top of the page to pick the word or the symbol
+4. Copy stars
+5. Paste into your README
+6. Commit and push
 
 ## 🔧 Manual Setup
 
@@ -46,6 +57,12 @@ A fun way to show off your repo's stars — and maybe earn a few more too :)
 3. Paste into your README
 
 Both images are fetched live, so they always reflect the repo's current star count.
+
+Prefer a ★ symbol over the word "stars"? Swap `stars-badge` for `stars-badge-symbol` in the first line:
+```markdown
+[![your-repo stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=owner/name)](https://repo-stars.vercel.app)
+[![your-repo stars](https://repo-stars.vercel.app/api/svg?repo=owner/name)](https://repo-stars.vercel.app)
+```
 
 ## 🚀 Advanced Setup
 
@@ -80,14 +97,19 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add stars.svg stars-badge.svg
+          git add stars.svg stars-badge.svg stars-badge-symbol.svg
           git commit -m "Update repo-stars" || exit 0
           git push
 ```
 3. Paste into the file you just created
-4. Copy the code below
+4. Copy the code below — "stars" as a word:
 ```markdown
 [![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars-badge.svg)](https://repo-stars.vercel.app)
+[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars.svg)](https://repo-stars.vercel.app)
+```
+...or the ★ symbol instead — the workflow generates `stars-badge-symbol.svg` too:
+```markdown
+[![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars-badge-symbol.svg)](https://repo-stars.vercel.app)
 [![your-repo stars](https://raw.githubusercontent.com/owner/name/main/stars.svg)](https://repo-stars.vercel.app)
 ```
 5. Replace `owner/name` with your repo
