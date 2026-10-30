@@ -110,6 +110,14 @@ To show the count as legible text, without it going stale the moment your star c
 
 This renders small SVG text (not the star art) that's refetched — and can change — every time your README is viewed, unlike plain markdown text which freezes the moment it's pasted. The "Quick Setup" snippet already includes this above the star field.
 
+Prefer a ★ symbol over the word "stars"?
+
+`https://repo-stars.vercel.app/api/stars-badge-symbol?repo=owner/name`
+
+Same live SVG text badge, same color and size, just the number and a ★ instead of the word "stars":
+
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+
 If you just want the raw number as JSON (to build your own text yourself):
 
 `https://repo-stars.vercel.app/api/stars?repo=owner/name`
