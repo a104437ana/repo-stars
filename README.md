@@ -74,7 +74,9 @@ Want it inline, in the middle of a sentence, like this: <a href="https://repo-st
 
 `<a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=owner/name"></a>`
 
-If the badge doesn't line up with your surrounding text, add a `height` attribute to the `<img>` tag and adjust it until it matches. Same trick works with `stars-badge-symbol` in the `src` for the ★ version.
+`<a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge-symbol?repo=owner/name"></a>`
+
+If the badge doesn't line up with your surrounding text, add a `height` attribute to the `<img>` tag and adjust it until it matches.
 
 ## 🚀 Advanced Setup
 
