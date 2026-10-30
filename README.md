@@ -58,11 +58,23 @@ A fun way to show off your repo's stars — and maybe earn a few more too :)
 
 Both images are fetched live, so they always reflect the repo's current star count.
 
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+
 Prefer a ★ symbol over the word "stars"? Swap `stars-badge` for `stars-badge-symbol` in the first line:
 ```markdown
 [![your-repo stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=owner/name)](https://repo-stars.vercel.app)
 [![your-repo stars](https://repo-stars.vercel.app/api/svg?repo=owner/name)](https://repo-stars.vercel.app)
 ```
+
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+
+Want it inline, in the middle of a sentence, instead of on its own line? Use an `<a>`/`<img>` tag directly instead of markdown:
+
+`<a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=owner/name"></a>`
+
+If the badge doesn't line up with your surrounding text, add a `height` attribute to the `<img>` tag and adjust it until it matches. Same trick works with `stars-badge-symbol` in the `src` for the ★ version.
 
 ## 🚀 Advanced Setup
 
@@ -140,23 +152,15 @@ This renders small SVG text (not the star art) that's refetched — and can chan
 
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
 
-Want it inline, in the middle of a sentence, instead of on its own line? Use an `<a>`/`<img>` tag directly instead of markdown:
-
-`<a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=owner/name"></a>`
-
-If the badge doesn't line up with your surrounding text, add a `height` attribute to the `<img>` tag and adjust it until it matches.
-
 ### Text badge — ★ symbol
 
 Prefer a ★ symbol over the word "stars"?
 
 `https://repo-stars.vercel.app/api/stars-badge-symbol?repo=owner/name`
 
-Same live SVG text badge, same color and size, just the number and a ★ instead of the word "stars":
+Same live SVG text badge, same color and size, just the number and a ★ instead of the word "stars".
 
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
-
-Same inline trick works here too — just swap `stars-badge` for `stars-badge-symbol` in the `src`, and adjust `height` the same way if needed.
 
 ### Raw JSON
 
