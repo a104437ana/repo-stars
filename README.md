@@ -128,6 +128,8 @@ You can also hit the API directly, without going through the site:
 
 The image itself carries no text — the count isn't legible from the art alone by design. Pair it with the text badge below if you want the number readable.
 
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+
 ### Text badge — "stars" as a word
 
 To show the count as legible text, without it going stale the moment your star count changes:
@@ -135,6 +137,16 @@ To show the count as legible text, without it going stale the moment your star c
 `https://repo-stars.vercel.app/api/stars-badge?repo=owner/name`
 
 This renders small SVG text (not the star art) that's refetched — and can change — every time your README is viewed, unlike plain markdown text which freezes the moment it's pasted. The "Quick Setup" snippet already includes this above the star field.
+
+[![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+
+Want it inline, in the middle of a sentence, instead of on its own line? Use an `<a>`/`<img>` tag directly instead of markdown:
+
+```html
+sakura-garden <a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Fsakura-garden" alt="sakura-garden stars"></a>; gitcolors <a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Fgitcolors" alt="gitcolors stars"></a>; ...
+```
+
+If the badge doesn't line up with your surrounding text, add a `height` attribute to the `<img>` tag and adjust it until it matches.
 
 ### Text badge — ★ symbol
 
@@ -145,6 +157,8 @@ Prefer a ★ symbol over the word "stars"?
 Same live SVG text badge, same color and size, just the number and a ★ instead of the word "stars":
 
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
+
+Same inline trick works here too — just swap `stars-badge` for `stars-badge-symbol` in the `src`, and adjust `height` the same way if needed.
 
 ### Raw JSON
 
