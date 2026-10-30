@@ -117,7 +117,8 @@
     }
     .readme-filename { font-size: 0.7rem; color: var(--text3); }
 
-    .theme-toggle { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+    .bar-controls { margin-left: auto; display: flex; align-items: center; gap: 1.1rem; }
+    .theme-toggle { display: flex; align-items: center; gap: 0.5rem; }
     .toggle-icon { font-size: 0.75rem; line-height: 1; user-select: none; width: 20px; display: inline-block; text-align: center; }
     .toggle-track {
       position: relative; width: 36px; height: 20px; border-radius: 10px;
@@ -125,14 +126,21 @@
       transition: background 0.25s; flex-shrink: 0;
     }
     .toggle-track:hover { opacity: 0.85; }
-    [data-theme="light"] .toggle-track { background: var(--accent); }
+    [data-theme="light"] .theme-toggle .toggle-track { background: var(--accent); }
     .toggle-thumb {
       position: absolute; top: 3px; left: 3px; width: 14px; height: 14px;
       border-radius: 50%; background: #fff;
       transition: transform 0.22s cubic-bezier(.4,0,.2,1);
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
-    [data-theme="light"] .toggle-thumb { transform: translateX(16px); }
+    [data-theme="light"] .theme-toggle .toggle-thumb { transform: translateX(16px); }
+
+    .badge-style-toggle { display: flex; align-items: center; gap: 0.5rem; }
+    .badge-style-toggle .badge-toggle-label {
+      font-family: "JetBrains Mono", monospace; font-size: 0.68rem; color: var(--text3); user-select: none;
+    }
+    .badge-style-toggle .toggle-track.on { background: var(--accent); }
+    .badge-style-toggle .toggle-track.on .toggle-thumb { transform: translateX(16px); }
 
     .readme-body {
       background: var(--surface); border: 1px solid var(--border); border-top: none;
@@ -251,12 +259,21 @@
 <div class="wrapper">
   <div class="readme-bar">
     <span class="readme-filename">README.md</span>
-    <div class="theme-toggle">
-      <span class="toggle-icon">🌙</span>
-      <button class="toggle-track" onclick="toggleTheme()" title="Toggle theme">
-        <div class="toggle-thumb"></div>
-      </button>
-      <span class="toggle-icon">☀️</span>
+    <div class="bar-controls">
+      <div class="badge-style-toggle">
+        <span class="badge-toggle-label">stars</span>
+        <button id="badgeStyleTrack" class="toggle-track" onclick="toggleBadgeStyle()" title="Toggle badge style: word vs ★ symbol">
+          <div class="toggle-thumb"></div>
+        </button>
+        <span class="badge-toggle-label">★</span>
+      </div>
+      <div class="theme-toggle">
+        <span class="toggle-icon">🌙</span>
+        <button class="toggle-track" onclick="toggleTheme()" title="Toggle theme">
+          <div class="toggle-thumb"></div>
+        </button>
+        <span class="toggle-icon">☀️</span>
+      </div>
     </div>
   </div>
 
@@ -300,10 +317,18 @@ function toggleTheme() {
 }
 initTheme();
 
+function initBadgeStyleToggle() {
+  var track = document.getElementById('badgeStyleTrack');
+  if (track) track.classList.toggle('on', badgeStyle === 'symbol');
+}
+
 var demoRepo = 'a104437ana/sakura-garden';
 var currentRepo = null;
+var shownRepo = null;
 var quickCopyState = 'idle';
 var requestId = 0;
+var badgeStyle = localStorage.getItem('repo-stars-badge-style') || 'word';
+initBadgeStyleToggle();
 
 var SKELETON_HTML =
   '<div class="skeleton-row">' +
@@ -320,7 +345,19 @@ function apiUrl(repo) {
 }
 
 function textBadgeUrl(repo) {
-  return location.origin + '/api/stars-badge?repo=' + encodeURIComponent(repo);
+  var endpoint = badgeStyle === 'symbol' ? '/api/stars-badge-symbol' : '/api/stars-badge';
+  return location.origin + endpoint + '?repo=' + encodeURIComponent(repo);
+}
+
+function toggleBadgeStyle() {
+  badgeStyle = badgeStyle === 'symbol' ? 'word' : 'symbol';
+  localStorage.setItem('repo-stars-badge-style', badgeStyle);
+
+  var track = document.getElementById('badgeStyleTrack');
+  if (track) track.classList.toggle('on', badgeStyle === 'symbol');
+
+  var img = document.getElementById('badgePreviewImg');
+  if (img && shownRepo) img.src = textBadgeUrl(shownRepo);
 }
 
 function getEmbedCode(repo) {
@@ -347,6 +384,7 @@ function renderResult(repo, isDemo) {
     .then(function () {
       if (thisRequest !== requestId) return;
 
+      shownRepo = repo;
       var parts = repo.split('/');
       var owner = parts[0];
       var repoName = parts[1];
@@ -371,7 +409,7 @@ function renderResult(repo, isDemo) {
       document.getElementById('result').innerHTML =
         profileRow +
         '<div class="repo-preview">' +
-          '<img class="badge-preview" src="' + badgeUrl + '" alt="' + repo + ' stars">' +
+          '<img id="badgePreviewImg" class="badge-preview" src="' + badgeUrl + '" alt="' + repo + ' stars">' +
           '<img class="star-preview" src="' + url + '" alt="' + repo + ' stars">' +
         '</div>' +
         actionBlock +
