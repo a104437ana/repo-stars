@@ -70,7 +70,7 @@ Prefer a ★ symbol over the word "stars"? Swap `stars-badge` for `stars-badge-s
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/svg?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
 
-Want it inline, in the middle of a sentence, instead of on its own line? Use an `<a>`/`<img>` tag directly instead of markdown:
+Want it inline, in the middle of a sentence, like this: <a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=a104437ana%2Frepo-stars"></a> — instead of on its own line? Use an `<a>`/`<img>` tag directly instead of markdown:
 
 `<a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=owner/name"></a>`
 
