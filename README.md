@@ -142,7 +142,7 @@ This renders small SVG text (not the star art) that's refetched — and can chan
 
 Want it inline, in the middle of a sentence, instead of on its own line? Use an `<a>`/`<img>` tag directly instead of markdown:
 
-`your-repo <a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=owner/name" alt="your-repo stars"></a>`
+`<a href="https://repo-stars.vercel.app"><img align="absmiddle" src="https://repo-stars.vercel.app/api/stars-badge?repo=owner/name"></a>`
 
 If the badge doesn't line up with your surrounding text, add a `height` attribute to the `<img>` tag and adjust it until it matches.
 
