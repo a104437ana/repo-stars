@@ -119,6 +119,8 @@ jobs:
 
 You can also hit the API directly, without going through the site:
 
+### Star field
+
 `https://repo-stars.vercel.app/api/svg?repo=owner/name`
 
 - `repo` — required, in `owner/name` format
@@ -126,11 +128,15 @@ You can also hit the API directly, without going through the site:
 
 The image itself carries no text — the count isn't legible from the art alone by design. Pair it with the text badge below if you want the number readable.
 
+### Text badge — "stars" as a word
+
 To show the count as legible text, without it going stale the moment your star count changes:
 
 `https://repo-stars.vercel.app/api/stars-badge?repo=owner/name`
 
 This renders small SVG text (not the star art) that's refetched — and can change — every time your README is viewed, unlike plain markdown text which freezes the moment it's pasted. The "Quick Setup" snippet already includes this above the star field.
+
+### Text badge — ★ symbol
 
 Prefer a ★ symbol over the word "stars"?
 
@@ -140,16 +146,13 @@ Same live SVG text badge, same color and size, just the number and a ★ instead
 
 [![a104437ana/repo-stars stars](https://repo-stars.vercel.app/api/stars-badge-symbol?repo=a104437ana%2Frepo-stars)](https://repo-stars.vercel.app)
 
+### Raw JSON
+
 If you just want the raw number as JSON (to build your own text yourself):
 
 `https://repo-stars.vercel.app/api/stars?repo=owner/name`
 
 returns `{ "repo": "owner/name", "stars": 16 }`.
-
-## Also check out
-
-- [sakura-garden](https://sakura-garden.vercel.app) — your GitHub contributions as a blooming garden
-- [gitcolors](https://gitcolors.vercel.app) — your contributions graph in any color
 
 ## Support
 
